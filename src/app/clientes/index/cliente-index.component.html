@@ -2,7 +2,7 @@
     <div class="card ui-g">
         <div class="ui-g-12">
             <p-toast position="top-center"></p-toast>
-            <h2>Clientes </h2>
+            <h2  >Clientes </h2>
 
             <section class="header-section">
                 <p-button class="button-excel" label="Excel" icon="pi pi-file-excel"></p-button>
@@ -18,12 +18,24 @@
                         <th *ngFor="let col of columns">
                             {{col.header}}
                         </th>
+
+                        <th width="300px" >
+                            Opciones
+                        </th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-columns="columns">
                     <tr>
                         <td *ngFor="let col of columns">
                             {{rowData[col.field]}}
+                        </td>
+                        <td>
+                            <button pButton class="ui-button-primary" type="button" icon="pi pi-eye" pTooltip="Ver"
+                                (click)="redirect('show', rowData.id)"></button>
+                            <button pButton class="ui-button-success" style="margin-left: 5px;" type="button"
+                                icon="pi pi-pencil" pTooltip="Editar" (click)="redirect('edit', rowData.id)"></button>
+                            <button pButton class="ui-button-danger" style="margin-left: 5px;" type="button"
+                                icon="pi pi-times" pTooltip="Eliminar" (click)="delete(rowData)"></button>
                         </td>
                     </tr>
                 </ng-template>

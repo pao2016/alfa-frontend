@@ -20,6 +20,8 @@ import {MultiSelectModule} from 'primeng/multiselect';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'; 
+import { InterceptorsService } from './interceptors/interceptors.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,9 +47,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MessagesModule,
     MessageModule,
     MultiSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide : HTTP_INTERCEPTORS,
+      useClass : InterceptorsService,
+      multi : true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
