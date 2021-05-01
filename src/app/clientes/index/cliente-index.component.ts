@@ -45,13 +45,15 @@ export class ClienteIndexComponent implements OnInit {
 
 
   obtenerClientes() {
-    this.clientesService.obtenerClientes().subscribe(
-      resp => {
-        this.clientes = resp;
-        console.log(resp)
-      }
-    );
+    debugger
+    this.clientesService.obtenerClientes().then((resp: Cliente[]) =>{
+      console.log("respues", resp);
+      this.clientes = resp;
+    })
+  
   }
+    
+   
   delete(item){
 
   }

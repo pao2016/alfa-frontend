@@ -36,10 +36,10 @@
         <label for="name">Ciudad</label>
       </section>
       <article class="form-control">
-        <p-multiSelect [options]="items" [defaultLabel]="getdefaultLabel()" [(ngModel)]="itemsSelected"
+        <p-multiSelect  [options]="items" [defaultLabel]="getdefaultLabel()" [(ngModel)]="itemsSelected"
           [virtualScroll]="true" [itemSize]="34" [filter]="true" formControlName="ciudad_id" id="ciudad_id"
-          [selectionLimit]=2>
-        </p-multiSelect>
+          [selectionLimit]=2 >
+        </p-multiSelect  >
       </article>
     </section>
 

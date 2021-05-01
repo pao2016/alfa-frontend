@@ -9,23 +9,20 @@ const base_url = environment.base_url;
 })
 export class ClientesService {
 
-  constructor(private http: HttpClient, ) { }
+  constructor(private http: HttpClient,) { }
 
-  obtenerClientes(): any {
-    console.log("la url en base del servicio", base_url);
-    return this.http.get(`${base_url}/clientes`).pipe(map(res => res));
+  obtenerClientes() {
+    return new Promise((resolve, reject) => {
+      this.http.get(`${base_url}/clientes`).subscribe(response =>{
+        resolve(response), error => {
+          reject(error);
+        }
+      });
+    
+    });
+
   }
-  /*
-    crearCliente(cliente: Cliente) {
-     /* let params ={
-        nombre : cliente.nombre,
-        telefono : cliente.telefono,
-        ciudad_id : cliente.ciudad_id,
-      }
-       return this.http.post(`${base_url}/clientes`, params);
-     }
-  
-       */
+
 
   crearCliente(cliente: Cliente) {
     let params = {
@@ -43,8 +40,15 @@ export class ClientesService {
     });
   }
 
-  obtenerCliente(id: any): any {
-    return this.http.get(`${base_url}/clientes/${id}`);
+  obtenerCliente(id: any) {
+    return new Promise((resolve, reject) => {
+      this.http.get(`${base_url}/clientes/${id}`).subscribe(respose => {
+        resolve(respose), error => {
+          reject(error);
+        }
+      });
+    });
+
 
   }
 

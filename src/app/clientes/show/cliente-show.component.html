@@ -7,9 +7,8 @@
             </div>
             <h2>Ver cliente</h2>
             <section class="ui-g-12 ui-fluid form-create">
-                <section class="ui-g-12 ui-fluid form-create">
-                    <!--  <app-users-form [userData]="user" [viewMode]="true"></app-users-form> -->
-                    <app-cliente-form></app-cliente-form>
+                <section class="ui-g-12 ui-fluid form-create" *ngIf="this.cliente">
+                    <app-cliente-form [clienteData]="this.cliente" [viewMode]="true"></app-cliente-form>
                 </section>
             </section>
         </div>

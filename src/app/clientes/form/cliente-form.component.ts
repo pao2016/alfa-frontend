@@ -67,25 +67,25 @@ export class ClienteFormComponent implements OnInit {
       }),
 
     });
-
+   
   }
 
   configOptionsCiudades() {
     this.optionsValuesCiudades.forEach((option) => {
       this.items.push({ label: option.label, value: option.id });
     });
+    
   }
 
   getdefaultLabel() {
-    if (
-      this.itemsSelected &&
-      this.cliente.ciudad_id !== undefined) {
-      let ciudad = this.optionsValuesCiudades.find((item) => item.id === +this.itemsSelected[0]);
+    let name : string = "Seleccione";
+    if (this.cliente.ciudad_id !== undefined) {
+      let ciudad = this.optionsValuesCiudades.find((item) => item.id === +this.cliente.ciudad_id);
       if (ciudad) {
-        return ciudad.name;
+       name = ciudad.label.toString();
       }
-    }
-    return "Seleccione";
+    } 
+    return name;
   }
 
   getValuesForm() {
