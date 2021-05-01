@@ -1,0 +1,48 @@
+.header-section {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+    width: 100%;
+    align-items: center;
+    display: flex;
+  }
+  
+  .ml-auto {
+    margin-left: auto;
+  }
+  
+  h2 {
+    font-size: 34px;
+  }
+  
+  .button-pdf, .button-excel{
+    margin-right: 20px;
+  }
+  
+  .button-pdf {
+    background-color: red!important;
+  }
+  
+  .button-excel {
+    background-color: green !important;
+  }
+  
+  .d-none{
+    display: none;
+  }
+  .btnH {
+    border-radius: 50%;
+    background-color: #FFC107;
+    padding-left: 7px;
+    padding-right: 7px;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 18px;
+    color: #000;
+  } 
+  .btnH:focus {
+    outline: none;
+  }
+  .btnH:hover{
+    border-bottom-style: none;
+    background-color: #FFC000;
+  }

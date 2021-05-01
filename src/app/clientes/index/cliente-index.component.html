@@ -1,0 +1,33 @@
+<div class="ui-fluid">
+    <div class="card ui-g">
+        <div class="ui-g-12">
+            <p-toast position="top-center"></p-toast>
+            <h2>Clientes </h2>
+
+            <section class="header-section">
+                <p-button class="button-excel" label="Excel" icon="pi pi-file-excel"></p-button>
+                <p-button class="button-pdf" label="PDF" icon="pi pi-file-pdf"></p-button>
+                <article class="ml-auto">
+                    <p-button id="registrar" class="ui-button-success" icon="pi pi-plus" iconPos="right"
+                        label="Registrar" (onClick)="redirect('create')"></p-button>
+                </article>
+            </section>
+            <p-table [columns]="cols" [value]="clientes">
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns">
+                            {{col.header}}
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr>
+                        <td *ngFor="let col of columns">
+                            {{rowData[col.field]}}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>

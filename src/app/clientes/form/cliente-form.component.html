@@ -1,0 +1,53 @@
+<form [formGroup]="clienteForm">
+  <article class="form">
+    <article class="ui-g-12">
+      <section class="ui-g-4">
+        <label for="nombre">Nombre</label>
+      </section>
+      <section class="ui-g-8">
+        <input pInputText id="nombre" formControlName="nombre" autofocus [readOnly]="viewMode" class="form-control" />
+        <article *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="form-errors">
+          <p class="help is-danger is-size-6" *ngIf="nombre.errors.required">Campo obligatorio</p>
+          <p class="help is-danger is-size-6" *ngIf="nombre.errors.minlength">Debe agregar más de 3 caracteres</p>
+          <p class="help is-danger is-size-6" *ngIf="nombre.errors.pattern">Sólo puede agregar letras.</p>
+          <p class="help is-danger is-size-6" *ngIf="nombre.errors.whitespace">Ingrese información válida </p>
+        </article>
+      </section>
+    </article>
+
+    <article class="ui-g-12">
+      <section class="ui-g-4">
+        <label for="telefono">Telefono</label>
+      </section>
+      <section class="ui-g-8">
+        <input pInputText id="telefono" formControlName="telefono" [readOnly]="viewMode" class="form-control" />
+        <article *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)" class="form-errors">
+          <p class="help is-danger is-size-6" *ngIf="telefono.errors.required">Campo obligatorio</p>
+          <p class="help is-danger is-size-6" *ngIf="telefono.errors.minlength">Debe agregar más de 3 caracteres</p>
+          <p class="help is-danger is-size-6" *ngIf="telefono.errors.pattern">Sólo puede agregar letras.</p>
+          <p class="help is-danger is-size-6" *ngIf="telefono.errors.whitespace">Ingrese información válida </p>
+        </article>
+      </section>
+    </article>
+
+    <section class="ui-g-12">
+      <section class="ui-g-8">
+        <label for="name">Ciudad</label>
+      </section>
+      <article class="form-control">
+        <p-multiSelect [options]="items" [defaultLabel]="getdefaultLabel()" [(ngModel)]="itemsSelected"
+          [virtualScroll]="true" [itemSize]="34" [filter]="true" formControlName="ciudad_id" id="ciudad_id"
+          [selectionLimit]=2>
+        </p-multiSelect>
+      </article>
+    </section>
+
+    <section class="ui-g-2" *ngIf="!viewMode">
+      <button id="save" type="button" pButton class="ui-button-success" icon="pi pi-check" (click)="save()"
+        [disabled]="!clienteForm.valid" label="Guardar" style="top: 40px;"></button>
+    </section>
+
+
+
+  </article>
+</form>

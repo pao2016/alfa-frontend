@@ -1,0 +1,21 @@
+h2 {
+    font-size: 30px;
+    text-align: center;
+  }
+  
+  .form-create {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+  }
+  
+  .header {
+    margin: 30px;
+  }
+  
+  .float-left {
+    margin-top: 20px;
+    float: left;
+  }
+  
