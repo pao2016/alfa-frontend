@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 export class ClienteFormComponent implements OnInit {
   clienteForm: FormGroup;
   @Input() clienteData: Cliente;
-  @Input() newUser: boolean = true;
+  @Input() newCliente: boolean = true;
   @Input() viewMode: boolean = false;
   cliente: Cliente = new Cliente();
   clienteRegistered: Cliente;
@@ -67,24 +67,24 @@ export class ClienteFormComponent implements OnInit {
       }),
 
     });
-   
+
   }
 
   configOptionsCiudades() {
     this.optionsValuesCiudades.forEach((option) => {
       this.items.push({ label: option.label, value: option.id });
     });
-    
+
   }
 
   getdefaultLabel() {
-    let name : string = "Seleccione";
+    let name: string = "Seleccione";
     if (this.cliente.ciudad_id !== undefined) {
       let ciudad = this.optionsValuesCiudades.find((item) => item.id === +this.cliente.ciudad_id);
       if (ciudad) {
-       name = ciudad.label.toString();
+        name = ciudad.label.toString();
       }
-    } 
+    }
     return name;
   }
 
@@ -100,13 +100,37 @@ export class ClienteFormComponent implements OnInit {
 
   save() {
     const CLIENTE: Cliente = this.getValuesForm();
-    this.clientesService.crearCliente(CLIENTE).then((resp: Cliente) => {
-      if (resp && resp.id !== undefined && resp.id !== null) {
-        this.messageService.add({ severity: 'success', summary: 'Información', detail: 'Cliente se registro correctameente' });
-        setTimeout(() => {
-          this.router.navigate(['/clientes/index']);
-        }, 1000);
+    if (this.newCliente) {
+      this.clientesService.crearCliente(CLIENTE).then((resp: Cliente) => {
+        if (resp && resp.id !== undefined && resp.id !== null) {
+          this.messageService.add({ severity: 'success', summary: 'Información', detail: 'Cliente se registro correctameente' });
+          setTimeout(() => {
+            this.router.navigate(['/clientes/index']);
+          }, 1000);
+        }
+      });
+    } else {
+      
+      if (this.itemsSelected.length > 0) {
+        CLIENTE.ciudad_id = +this.itemsSelected[0];
+      } else {
+        CLIENTE.ciudad_id = this.clienteRegistered.ciudad_id;
       }
-    });
+
+      this.clientesService.actualizarCliente( this.cliente.id, CLIENTE).then((resp: Cliente) => {
+        if (resp && resp.id !== undefined && resp.id !== null) {
+          this.messageService.add({ severity: 'success', summary: 'Información', detail: 'Cliente se actualizo correctameente' });
+          setTimeout(() => {
+            this.router.navigate(['/clientes/index']);
+          }, 1000);
+        } else {
+          this.messageService.add({ severity: 'error', summary: 'Información', detail: 'Revise los campos, No se actualizo ' });
+          setTimeout(() => {
+            this.router.navigate(['/clientes/index']);
+          }, 1000);
+        }
+
+      });
+    }
   }
 }

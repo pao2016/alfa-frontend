@@ -6,11 +6,8 @@
                     label="Volver"></button>
           </div>
           <h2> Editar Dominio</h2>
-          <section class="ui-g-12 ui-fluid form-create">
-           
-             <!--   <app-domain-form [domainData]="domain" [newDomain]="false"></app-domain-form> -->
-             <app-cliente-form></app-cliente-form>
-         
+          <section class="ui-g-12 ui-fluid form-create" *ngIf="this.cliente">
+             <app-cliente-form [clienteData]="this.cliente" [newCliente]="false"></app-cliente-form>
           </section>
         </div>
       </div>

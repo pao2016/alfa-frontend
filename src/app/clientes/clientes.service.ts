@@ -48,19 +48,33 @@ export class ClientesService {
         }
       });
     });
+ }
+
+ eliminarCliente(id: any) {
+  return new Promise((resolve, reject) => {
+    this.http.delete(`${base_url}/clientes/${id}`).subscribe(respose => {
+      resolve(respose), error => {
+        reject(error);
+      }
+    });
+  });
+}
 
 
-  }
-
-  actualizarCliente(cliente: Cliente): any {
+  actualizarCliente( id : any, cliente: Cliente) {
     let params = {
-      id: cliente.id,
       nombre: cliente.nombre,
       telefono: cliente.telefono,
       ciudad_id: cliente.ciudad_id,
     }
-    return this.http.post(`${base_url}/clientes`, params);
-  }
+    return new Promise((resolve, reject) => {
+      this.http.put(`${base_url}/clientes/${id}`, params).subscribe(response => {
+        resolve(response), error => {
+          reject(error);
+        }
+      });
 
+    });
+  }
 
 }

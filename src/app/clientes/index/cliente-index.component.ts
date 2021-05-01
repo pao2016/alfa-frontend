@@ -45,16 +45,21 @@ export class ClienteIndexComponent implements OnInit {
 
 
   obtenerClientes() {
-    debugger
-    this.clientesService.obtenerClientes().then((resp: Cliente[]) =>{
+    this.clientesService.obtenerClientes().then((resp: Cliente[]) => {
       console.log("respues", resp);
       this.clientes = resp;
     })
-  
-  }
-    
-   
-  delete(item){
 
+  }
+
+
+  delete(item) {
+    this.clientesService.eliminarCliente(item.id).then((resp: Cliente) => {
+      if (resp && resp.id !== null) {
+        this.messageService.add({ severity: 'success', summary: 'Información', detail: 'Cliente se registro correctameente' });
+      } else {
+        this.messageService.add({ severity: 'error', summary: 'Información', detail: 'El cliente no fue eliminado' });
+      }
+    });
   }
 }
