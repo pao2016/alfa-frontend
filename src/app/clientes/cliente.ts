@@ -2,7 +2,7 @@ export class Cliente {
     public id: number = null
     public  nombre: string = ''
     public telefono: any = []
-    public ciudaID:  number = null
+    public ciudad_id:  number = null
     
 }
 

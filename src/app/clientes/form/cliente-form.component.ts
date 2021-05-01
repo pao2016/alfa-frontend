@@ -3,7 +3,8 @@ import { Message, MessageService } from 'primeng/api';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Cliente } from '../cliente';
 import { SelectItem } from "primeng/api";
-
+import { ClientesService } from '../clientes.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-cliente-form',
   templateUrl: './cliente-form.component.html',
@@ -26,7 +27,9 @@ export class ClienteFormComponent implements OnInit {
     { id: 3, name: "Bogota", label: "Bogota" },
     { id: 4, name: "Pasto", label: "Pasto" },
   ];
-  constructor() { }
+  constructor(private clientesService: ClientesService,
+    private messageService: MessageService,
+    private router: Router) { }
 
   get nombre() {
     return this.clienteForm.get('nombre');
@@ -59,7 +62,7 @@ export class ClienteFormComponent implements OnInit {
       ]),
 
       ciudad_id: new FormControl({
-        value: this.cliente.ciudaID,
+        value: this.cliente.ciudad_id,
         disabled: this.viewMode,
       }),
 
@@ -76,7 +79,7 @@ export class ClienteFormComponent implements OnInit {
   getdefaultLabel() {
     if (
       this.itemsSelected &&
-      this.cliente.ciudaID !== undefined  ) {
+      this.cliente.ciudad_id !== undefined) {
       let ciudad = this.optionsValuesCiudades.find((item) => item.id === +this.itemsSelected[0]);
       if (ciudad) {
         return ciudad.name;
@@ -84,20 +87,26 @@ export class ClienteFormComponent implements OnInit {
     }
     return "Seleccione";
   }
-  
+
   getValuesForm() {
     const CLIENTE = new Cliente();
     CLIENTE.nombre = this.nombre.value;
     CLIENTE.telefono = this.telefono.value;
-    console.log("seleccion", this.itemsSelected);
-     if (this.itemsSelected !== null && this.itemsSelected.length > 0) {
-      CLIENTE.ciudaID = parseInt(this.itemsSelected[0]);
+    if (this.itemsSelected !== null && this.itemsSelected.length > 0) {
+      CLIENTE.ciudad_id = parseInt(this.itemsSelected[0]);
     }
-      return CLIENTE;
+    return CLIENTE;
   }
 
-  save(){
+  save() {
     const CLIENTE: Cliente = this.getValuesForm();
-    console.log("los datos a guardar", CLIENTE);
+    this.clientesService.crearCliente(CLIENTE).then((resp: Cliente) => {
+      if (resp && resp.id !== undefined && resp.id !== null) {
+        this.messageService.add({ severity: 'success', summary: 'Información', detail: 'Cliente se registro correctameente' });
+        setTimeout(() => {
+          this.router.navigate(['/clientes/index']);
+        }, 1000);
+      }
+    });
   }
 }
